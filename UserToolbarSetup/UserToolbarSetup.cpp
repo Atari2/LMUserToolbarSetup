@@ -2,7 +2,11 @@
 #ifndef __STDC_WANT_LIB_EXT1__
 #define __STDC_WANT_LIB_EXT1__ 1
 #endif
+#ifdef _MSC_VER
 #include <cstdio>
+#else
+#include <stdio.h>
+#endif
 #include <algorithm>
 #include <filesystem>
 #include <string>
@@ -16,7 +20,7 @@
 #endif 
 
 #ifndef _countof
-#define _countof(m) (sizeof(m) / sizeof / m[0]))
+#define _countof(m) (sizeof(m) / sizeof(m[0]))
 #endif
 
 namespace fs = std::filesystem;
