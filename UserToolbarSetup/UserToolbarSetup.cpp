@@ -1,8 +1,23 @@
 #include "UserToolbarSetup.h"
-#include <algorithm>
+#ifndef __STDC_WANT_LIB_EXT1__
+#define __STDC_WANT_LIB_EXT1__ 1
+#endif
 #include <cstdio>
+#include <algorithm>
 #include <filesystem>
 #include <string>
+
+#ifndef _MSC_VER
+#include <cstring>
+#endif
+
+#ifndef _MAX_PATH
+#define _MAX_PATH 260
+#endif 
+
+#ifndef _countof
+#define _countof(m) (sizeof(m) / sizeof / m[0]))
+#endif
 
 namespace fs = std::filesystem;
 
@@ -70,7 +85,7 @@ int main(int argc, char *argv[]) {
 
     fclose(out);
 
-    printf("usertoolbar.txt created successfully in your Lunar Magic folder!");
+    puts("usertoolbar.txt created successfully in your Lunar Magic folder!");
     ret = getchar();
     return 0;
 }
