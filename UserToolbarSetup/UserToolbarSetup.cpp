@@ -9,7 +9,7 @@
 
 #ifndef _MSC_VER
 #include <cstring>
-#define gets_s(s, len) gets(s)
+#define gets_s(s, len) fgets(s, len, stdin)
 #define strcpy_s(s1, l, s2) strcpy(s1, s2)
 #define sprintf_s(out, fmt, ...) sprintf(out, fmt, __VA_ARGS__)
 #endif
@@ -33,6 +33,9 @@ int main(int argc, char *argv[]) {
     char totalstring[tot_len] = {0};
     printf("Drag and drop Lunar Magic's executable here:\n");
     gets_s(cpath, (unsigned)_countof(cpath));
+    if (cpath[strlen(cpath) - 1] == '\n') {
+        cpath[strlen(cpath) - 1] = '\0';
+    }
     if (cpath[0] == '"' && cpath[strlen(cpath) - 1] == '"') {
         cpath[strlen(cpath) - 1] = '\0';
         memmove(cpath, cpath + 1, strlen(cpath) + 1);
@@ -48,7 +51,7 @@ int main(int argc, char *argv[]) {
     FILE *out = nullptr;
     auto err = fopen_s(&out, strPath.c_str(), "w");
     #else
-    int err = 0;
+    char* err = nullptr;
     FILE *out = fopen(strPath.c_str(), "w");
     #endif
 
