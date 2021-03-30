@@ -2,17 +2,16 @@
 #ifndef __STDC_WANT_LIB_EXT1__
 #define __STDC_WANT_LIB_EXT1__ 1
 #endif
-#ifdef _MSC_VER
 #include <cstdio>
-#else
-#include <stdio.h>
-#endif
 #include <algorithm>
 #include <filesystem>
 #include <string>
 
 #ifndef _MSC_VER
 #include <cstring>
+#define gets_s(s, len) gets(s)
+#define strcpy_s(s1, l, s2) strcpy(s1, s2)
+#define sprintf_s(out, fmt, ...) sprintf(out, fmt, __VA_ARGS__)
 #endif
 
 #ifndef _MAX_PATH
@@ -45,8 +44,13 @@ int main(int argc, char *argv[]) {
 
     std::string strPath = lmpath.parent_path().generic_string() + "/usertoolbar.txt";
 
+    #ifdef _MSC_VER
     FILE *out = nullptr;
     auto err = fopen_s(&out, strPath.c_str(), "w");
+    #else
+    int err = 0;
+    FILE *out = fopen(strPath.c_str(), "w");
+    #endif
 
     if (err != 0 || out == nullptr) {
         Error("Couldn\'t open file ", strPath.c_str());
